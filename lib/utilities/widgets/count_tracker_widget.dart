@@ -10,6 +10,13 @@ class CountTrackerWidget extends StatefulWidget {
 class _CountTrackerWidgetState extends State<CountTrackerWidget> {
   int counterNumber = 0;
   int userNumber = 6;
+  final _controller = TextEditingController();
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
 
   void _counterIncreased() {
     if (counterNumber < userNumber) {
@@ -31,6 +38,38 @@ class _CountTrackerWidgetState extends State<CountTrackerWidget> {
     setState(() {
       counterNumber = 0;
     });
+  }
+
+  void _userInputDialog() {
+    showDialog(
+      context: context,
+      builder: ((context) {
+        return AlertDialog(
+          content: TextField(
+            keyboardType: TextInputType.number,
+            controller: _controller,
+          ),
+          actions: [
+            MaterialButton(
+              onPressed: (() {
+                setState(() {
+                  userNumber = int.parse(_controller.text);
+                });
+                Navigator.of(context).pop();
+                _controller.clear();
+              }),
+              child: const Text("OK"),
+            ),
+            MaterialButton(
+              onPressed: (() {
+                Navigator.of(context).pop();
+              }),
+              child: const Text("Cancel"),
+            ),
+          ],
+        );
+      }),
+    );
   }
 
   @override
@@ -57,9 +96,8 @@ class _CountTrackerWidgetState extends State<CountTrackerWidget> {
                     ),
                   ),
                   GestureDetector(
-                    onDoubleTap: () {
-                      _counterReset();
-                    },
+                    onDoubleTap: _counterReset,
+                    onTap: _userInputDialog,
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(8),
                       child: Container(
@@ -83,9 +121,7 @@ class _CountTrackerWidgetState extends State<CountTrackerWidget> {
                           bottomLeft: Radius.circular(8),
                         ),
                         child: GestureDetector(
-                          onTap: () {
-                            _counterIncreased();
-                          },
+                          onTap: _counterIncreased,
                           child: Container(
                             height: 40,
                             width: 70,
@@ -100,9 +136,7 @@ class _CountTrackerWidgetState extends State<CountTrackerWidget> {
                           bottomRight: Radius.circular(8),
                         ),
                         child: GestureDetector(
-                          onTap: () {
-                            _counterDecreased();
-                          },
+                          onTap: _counterDecreased,
                           child: Container(
                             height: 40,
                             width: 70,

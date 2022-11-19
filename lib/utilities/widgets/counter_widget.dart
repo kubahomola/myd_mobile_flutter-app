@@ -22,7 +22,7 @@ class _CounterWidgetState extends State<CounterWidget> {
     });
   }
 
-  void _resetCounter() {
+  void _counterReset() {
     setState(() {
       counterNumber = 0;
     });
@@ -52,9 +52,7 @@ class _CounterWidgetState extends State<CounterWidget> {
                     ),
                   ),
                   GestureDetector(
-                    onDoubleTap: () {
-                      _resetCounter();
-                    },
+                    onDoubleTap: _counterReset,
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(8),
                       child: Container(
@@ -78,9 +76,7 @@ class _CounterWidgetState extends State<CounterWidget> {
                           bottomLeft: Radius.circular(8),
                         ),
                         child: GestureDetector(
-                          onTap: () {
-                            _counterIncreased();
-                          },
+                          onTap: _counterIncreased,
                           child: Container(
                             height: 40,
                             width: 70,
@@ -95,9 +91,7 @@ class _CounterWidgetState extends State<CounterWidget> {
                           bottomRight: Radius.circular(8),
                         ),
                         child: GestureDetector(
-                          onTap: () {
-                            _counterDecreased();
-                          },
+                          onTap: _counterDecreased,
                           child: Container(
                             height: 40,
                             width: 70,
