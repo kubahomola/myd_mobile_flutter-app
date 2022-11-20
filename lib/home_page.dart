@@ -14,7 +14,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(100, 44, 48, 55),
+      backgroundColor: const Color.fromARGB(255, 44, 48, 55),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

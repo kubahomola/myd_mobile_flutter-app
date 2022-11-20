@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:myd/utilities/widgets/edit_title_text_field.dart';
 
 class CounterWidget extends StatefulWidget {
   const CounterWidget({Key? key}) : super(key: key);
@@ -36,21 +37,14 @@ class _CounterWidgetState extends State<CounterWidget> {
           padding: const EdgeInsets.all(10.0),
           child: Container(
             decoration: BoxDecoration(
-                color: const Color.fromARGB(60, 217, 217, 217),
+                color: const Color.fromARGB(80, 217, 217, 217),
                 borderRadius: BorderRadius.circular(16)),
             child: Padding(
               padding: const EdgeInsets.all(20),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Text(
-                    "Counter",
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                    ),
-                  ),
+                  const EditTitleTextField(),
                   GestureDetector(
                     onDoubleTap: _counterReset,
                     child: ClipRRect(
@@ -59,7 +53,7 @@ class _CounterWidgetState extends State<CounterWidget> {
                         alignment: const Alignment(0, 0),
                         height: 40,
                         width: 40,
-                        color: const Color.fromARGB(100, 81, 85, 92),
+                        color: const Color.fromARGB(255, 81, 85, 92),
                         child: Text(
                           counterNumber.toString(),
                           style: const TextStyle(
@@ -72,16 +66,17 @@ class _CounterWidgetState extends State<CounterWidget> {
                     children: [
                       ClipRRect(
                         borderRadius: const BorderRadius.only(
-                          topLeft: Radius.circular(8),
                           bottomLeft: Radius.circular(8),
+                          topLeft: Radius.circular(8),
                         ),
                         child: GestureDetector(
-                          onTap: _counterIncreased,
+                          onTap: _counterDecreased,
                           child: Container(
                             height: 40,
                             width: 70,
-                            color: const Color.fromARGB(100, 87, 153, 153),
-                            child: const Icon(Icons.add, color: Colors.white),
+                            color: const Color.fromARGB(255, 44, 48, 55),
+                            child:
+                                const Icon(Icons.remove, color: Colors.white),
                           ),
                         ),
                       ),
@@ -91,13 +86,12 @@ class _CounterWidgetState extends State<CounterWidget> {
                           bottomRight: Radius.circular(8),
                         ),
                         child: GestureDetector(
-                          onTap: _counterDecreased,
+                          onTap: _counterIncreased,
                           child: Container(
                             height: 40,
                             width: 70,
-                            color: const Color.fromARGB(100, 44, 48, 55),
-                            child:
-                                const Icon(Icons.remove, color: Colors.white),
+                            color: const Color.fromARGB(255, 87, 153, 153),
+                            child: const Icon(Icons.add, color: Colors.white),
                           ),
                         ),
                       )

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:myd/utilities/widgets/edit_title_text_field.dart';
 
 class CountTrackerWidget extends StatefulWidget {
   const CountTrackerWidget({Key? key}) : super(key: key);
@@ -45,9 +46,13 @@ class _CountTrackerWidgetState extends State<CountTrackerWidget> {
       context: context,
       builder: ((context) {
         return AlertDialog(
+          backgroundColor: const Color.fromARGB(255, 44, 48, 55),
+          title: const Text("Select number",
+              style: TextStyle(color: Colors.white)),
           content: TextField(
+            style: const TextStyle(color: Colors.white),
             keyboardType: TextInputType.number,
-            controller: _controller,
+            controller: _controller..text = "0",
           ),
           actions: [
             MaterialButton(
@@ -58,13 +63,19 @@ class _CountTrackerWidgetState extends State<CountTrackerWidget> {
                 Navigator.of(context).pop();
                 _controller.clear();
               }),
-              child: const Text("OK"),
+              child: const Text(
+                "OK",
+                style: TextStyle(color: Colors.white),
+              ),
             ),
             MaterialButton(
               onPressed: (() {
                 Navigator.of(context).pop();
               }),
-              child: const Text("Cancel"),
+              child: const Text(
+                "Cancel",
+                style: TextStyle(color: Colors.white),
+              ),
             ),
           ],
         );
@@ -80,21 +91,14 @@ class _CountTrackerWidgetState extends State<CountTrackerWidget> {
           padding: const EdgeInsets.all(10.0),
           child: Container(
             decoration: BoxDecoration(
-                color: const Color.fromARGB(60, 217, 217, 217),
+                color: const Color.fromARGB(80, 217, 217, 217),
                 borderRadius: BorderRadius.circular(16)),
             child: Padding(
               padding: const EdgeInsets.all(20),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Text(
-                    "Counter",
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                    ),
-                  ),
+                  const EditTitleTextField(),
                   GestureDetector(
                     onDoubleTap: _counterReset,
                     onTap: _userInputDialog,
@@ -104,7 +108,7 @@ class _CountTrackerWidgetState extends State<CountTrackerWidget> {
                         alignment: const Alignment(0, 0),
                         height: 40,
                         width: 50,
-                        color: const Color.fromARGB(100, 81, 85, 92),
+                        color: const Color.fromARGB(255, 81, 85, 92),
                         child: Text(
                           "$counterNumber/$userNumber",
                           style: const TextStyle(
@@ -121,12 +125,13 @@ class _CountTrackerWidgetState extends State<CountTrackerWidget> {
                           bottomLeft: Radius.circular(8),
                         ),
                         child: GestureDetector(
-                          onTap: _counterIncreased,
+                          onTap: _counterDecreased,
                           child: Container(
                             height: 40,
                             width: 70,
-                            color: const Color.fromARGB(100, 87, 153, 153),
-                            child: const Icon(Icons.add, color: Colors.white),
+                            color: const Color.fromARGB(255, 44, 48, 55),
+                            child:
+                                const Icon(Icons.remove, color: Colors.white),
                           ),
                         ),
                       ),
@@ -136,16 +141,15 @@ class _CountTrackerWidgetState extends State<CountTrackerWidget> {
                           bottomRight: Radius.circular(8),
                         ),
                         child: GestureDetector(
-                          onTap: _counterDecreased,
+                          onTap: _counterIncreased,
                           child: Container(
                             height: 40,
                             width: 70,
-                            color: const Color.fromARGB(100, 44, 48, 55),
-                            child:
-                                const Icon(Icons.remove, color: Colors.white),
+                            color: const Color.fromARGB(255, 87, 153, 153),
+                            child: const Icon(Icons.add, color: Colors.white),
                           ),
                         ),
-                      )
+                      ),
                     ],
                   ),
                 ],
