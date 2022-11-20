@@ -10,6 +10,13 @@ class EditTitleTextField extends StatefulWidget {
 class _EditTitleTextFieldState extends State<EditTitleTextField> {
   //variables
   String initialText = "inial text";
+  final TextEditingController _textEditingController = TextEditingController();
+
+//pridat default text
+// TextField(
+//   controller: TextEditingController()..text = 'Your initial value',
+//   onChanged: (text) => {},
+// )
 
   @override
   Widget build(BuildContext context) {
@@ -26,6 +33,7 @@ class _EditTitleTextFieldState extends State<EditTitleTextField> {
           initialText = value;
           print(initialText);
         },
+        controller: _textEditingController..text = initialText,
       ),
     );
   }
