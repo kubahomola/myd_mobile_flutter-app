@@ -24,7 +24,7 @@ class _EditTitleTextFieldState extends State<EditTitleTextField> {
       width: 120,
       child: TextField(
         style:
-            const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+            const TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
         decoration: const InputDecoration(
           border: InputBorder.none,
         ),

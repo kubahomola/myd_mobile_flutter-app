@@ -17,15 +17,16 @@ class _NotesWidgetState extends State<NotesWidget> {
         child: Container(
           alignment: Alignment.centerLeft,
           decoration: BoxDecoration(
-              color: const Color.fromARGB(80, 217, 217, 217),
-              borderRadius: BorderRadius.circular(16)),
+            borderRadius: BorderRadius.circular(16),
+            color: Theme.of(context).colorScheme.primary,
+          ),
           child: Padding(
             padding: const EdgeInsets.all(20),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
+              children: const [
                 Padding(
-                  padding: const EdgeInsets.only(bottom: 3),
+                  padding: EdgeInsets.only(bottom: 3),
                   child: EditTitleTextField(),
                 ),
               ],

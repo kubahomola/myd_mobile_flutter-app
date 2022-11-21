@@ -91,7 +91,7 @@ class _CountTrackerWidgetState extends State<CountTrackerWidget> {
           padding: const EdgeInsets.all(10.0),
           child: Container(
             decoration: BoxDecoration(
-                color: const Color.fromARGB(80, 217, 217, 217),
+                color: Theme.of(context).colorScheme.primaryContainer,
                 borderRadius: BorderRadius.circular(16)),
             child: Padding(
               padding: const EdgeInsets.all(20),
@@ -106,13 +106,15 @@ class _CountTrackerWidgetState extends State<CountTrackerWidget> {
                       borderRadius: BorderRadius.circular(8),
                       child: Container(
                         alignment: const Alignment(0, 0),
-                        height: 40,
-                        width: 50,
-                        color: const Color.fromARGB(255, 81, 85, 92),
-                        child: Text(
-                          "$counterNumber/$userNumber",
-                          style: const TextStyle(
-                              fontSize: 18, color: Colors.white),
+                        color: Theme.of(context).colorScheme.primary,
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.5),
+                          child: Text(
+                            "$counterNumber/$userNumber",
+                            style: const TextStyle(
+                              fontSize: 18,
+                            ),
+                          ),
                         ),
                       ),
                     ),
@@ -127,11 +129,13 @@ class _CountTrackerWidgetState extends State<CountTrackerWidget> {
                         child: GestureDetector(
                           onTap: _counterDecreased,
                           child: Container(
+                            color: Theme.of(context).colorScheme.secondary,
                             height: 40,
                             width: 70,
-                            color: const Color.fromARGB(255, 44, 48, 55),
-                            child:
-                                const Icon(Icons.remove, color: Colors.white),
+                            // color: const Color.fromARGB(255, 44, 48, 55),
+                            child: const Icon(
+                              Icons.remove,
+                            ),
                           ),
                         ),
                       ),
@@ -145,8 +149,10 @@ class _CountTrackerWidgetState extends State<CountTrackerWidget> {
                           child: Container(
                             height: 40,
                             width: 70,
-                            color: const Color.fromARGB(255, 87, 153, 153),
-                            child: const Icon(Icons.add, color: Colors.white),
+                            color: Theme.of(context).colorScheme.tertiary,
+                            child: const Icon(
+                              Icons.add,
+                            ),
                           ),
                         ),
                       ),

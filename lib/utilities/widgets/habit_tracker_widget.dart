@@ -12,7 +12,7 @@ class HabitTrackerWidget extends StatelessWidget {
         padding: const EdgeInsets.all(10.0),
         child: Container(
           decoration: BoxDecoration(
-              color: const Color.fromARGB(80, 217, 217, 217),
+              color: Theme.of(context).colorScheme.primaryContainer,
               borderRadius: BorderRadius.circular(16)),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -25,14 +25,13 @@ class HabitTrackerWidget extends StatelessWidget {
                     child: Container(
                       height: 80,
                       width: 80,
-                      color: const Color.fromARGB(255, 81, 85, 92),
+                      color: Theme.of(context).colorScheme.primary,
                       child: CircularPercentIndicator(
                         radius: 32,
                         lineWidth: 7,
                         percent: 0.67,
-                        progressColor: const Color.fromARGB(255, 87, 153, 153),
-                        center: const Icon(Icons.play_arrow,
-                            color: Colors.white, size: 35),
+                        progressColor: Theme.of(context).colorScheme.tertiary,
+                        center: const Icon(Icons.play_arrow, size: 35),
                       ),
                     ),
                   ),
@@ -51,7 +50,6 @@ class HabitTrackerWidget extends StatelessWidget {
                 child: Icon(
                   Icons.settings_outlined,
                   size: 30,
-                  color: Colors.white,
                 ),
               ),
             ],
