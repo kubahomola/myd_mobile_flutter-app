@@ -98,7 +98,9 @@ class _CountTrackerWidgetState extends State<CountTrackerWidget> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const EditTitleTextField(),
+                  EditTitleTextField(
+                    initialText: "Counter2",
+                  ),
                   GestureDetector(
                     onDoubleTap: _counterReset,
                     onTap: _userInputDialog,

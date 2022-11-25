@@ -1,40 +1,29 @@
 import 'package:flutter/material.dart';
 
-class EditTitleTextField extends StatefulWidget {
-  const EditTitleTextField({Key? key}) : super(key: key);
-
-  @override
-  State<EditTitleTextField> createState() => _EditTitleTextFieldState();
-}
-
-class _EditTitleTextFieldState extends State<EditTitleTextField> {
+class EditTitleTextField extends StatelessWidget {
   //variables
-  String initialText = "inial text";
-  final TextEditingController _textEditingController = TextEditingController();
+  String initialText;
 
-//pridat default text
-// TextField(
-//   controller: TextEditingController()..text = 'Your initial value',
-//   onChanged: (text) => {},
-// )
+  EditTitleTextField({
+    Key? key,
+    required this.initialText,
+  }) : super(key: key);
+
+  final TextEditingController _textEditingController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: 120,
-      child: TextField(
-        style:
-            const TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
-        decoration: const InputDecoration(
-          border: InputBorder.none,
-        ),
-        autocorrect: false,
-        onSubmitted: (value) {
-          initialText = value;
-          print(initialText);
-        },
-        controller: _textEditingController..text = initialText,
+    return TextField(
+      style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+      decoration: const InputDecoration(
+        border: InputBorder.none,
       ),
+      autocorrect: false,
+      onSubmitted: (value) {
+        initialText = value;
+        print(initialText);
+      },
+      controller: _textEditingController..text = initialText,
     );
   }
 }

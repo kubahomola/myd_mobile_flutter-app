@@ -26,9 +26,9 @@ class _HomePageState extends State<HomePage> {
                 child: ListView(
                   children: const [
                     NotesWidget(),
-                    CounterWidget(),
-                    CountTrackerWidget(),
-                    HabitTrackerWidget(),
+                    // CounterWidget(),
+                    // CountTrackerWidget(),
+                    // HabitTrackerWidget(),
                   ],
                 ),
               )

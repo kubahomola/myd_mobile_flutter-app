@@ -44,7 +44,9 @@ class _CounterWidgetState extends State<CounterWidget> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const EditTitleTextField(),
+                  EditTitleTextField(
+                    initialText: "Counter1",
+                  ),
                   GestureDetector(
                     onDoubleTap: _counterReset,
                     child: ClipRRect(

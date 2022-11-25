@@ -40,9 +40,11 @@ class HabitTrackerWidget extends StatelessWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
-                  EditTitleTextField(),
-                  Text("5:00/10:00 | 50%")
+                children: [
+                  EditTitleTextField(
+                    initialText: "Habbit Tracker",
+                  ),
+                  const Text("5:00/10:00 | 50%")
                 ],
               ),
               const Padding(
