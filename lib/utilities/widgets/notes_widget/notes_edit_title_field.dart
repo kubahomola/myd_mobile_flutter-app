@@ -36,10 +36,19 @@ class _NotesEditTitleTextFieldState extends State<NotesEditTitleTextField> {
                     border: InputBorder.none,
                   ),
                   autocorrect: false,
+                  onChanged: (value) {
+                    setState(() {
+                      if (value == "") {
+                        setState(() {
+                          notesList.removeAt(index);
+                        });
+                      }
+                    });
+                  },
                   onFieldSubmitted: (value) {
                     notesList[index] = value;
                     setState(() {
-                      if (notesList[index] == "") {
+                      if (value == "") {
                         setState(() {
                           notesList.removeAt(index);
                         });
@@ -53,12 +62,12 @@ class _NotesEditTitleTextFieldState extends State<NotesEditTitleTextField> {
           GestureDetector(
               onTap: () {
                 setState(() {
-                  notesList.add(" ");
+                  notesList.add("");
                   _isEditing = true;
                 });
               },
               child: const Icon(
-                Icons.add_circle_outline,
+                Icons.add_circle_outlined,
               ))
         ],
       );
@@ -68,22 +77,23 @@ class _NotesEditTitleTextFieldState extends State<NotesEditTitleTextField> {
         children: [
           EditTitleTextField(initialText: "Notes"),
           ListView.builder(
-              shrinkWrap: true,
-              itemCount: notesList.length,
-              itemBuilder: ((context, index) {
-                return TextFormField(
-                  onTap: () {
-                    setState(() {
-                      _isEditing = true;
-                    });
-                  },
-                  style: const TextStyle(fontSize: 14),
-                  decoration: const InputDecoration(
-                    border: InputBorder.none,
-                  ),
-                  initialValue: notesList[index],
-                );
-              }))
+            shrinkWrap: true,
+            itemCount: notesList.length,
+            itemBuilder: ((context, index) {
+              return TextFormField(
+                onTap: () {
+                  setState(() {
+                    _isEditing = true;
+                  });
+                },
+                style: const TextStyle(fontSize: 14),
+                decoration: const InputDecoration(
+                  border: InputBorder.none,
+                ),
+                initialValue: notesList[index],
+              );
+            }),
+          )
         ],
       );
     }

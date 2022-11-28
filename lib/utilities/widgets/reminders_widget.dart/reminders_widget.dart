@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:myd/utilities/widgets/notes_edit_title_field.dart';
-import 'edit_title_text_field.dart';
+import 'package:myd/utilities/widgets/reminders_widget.dart/reminders_edit_title_field.dart';
 
-class NotesWidget extends StatefulWidget {
-  const NotesWidget({Key? key}) : super(key: key);
+class RemindersWidget extends StatefulWidget {
+  const RemindersWidget({Key? key}) : super(key: key);
 
   @override
-  State<NotesWidget> createState() => _NotesWidgetState();
+  State<RemindersWidget> createState() => _RemindersWidgetState();
 }
 
-class _NotesWidgetState extends State<NotesWidget> {
+class _RemindersWidgetState extends State<RemindersWidget> {
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -23,8 +22,8 @@ class _NotesWidgetState extends State<NotesWidget> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: const [
-                NotesEditTitleTextField(
-                  initialText: "Notes",
+                RemindersEditTitleTextField(
+                  initialText: "Reminders",
                 ),
               ],
             ),

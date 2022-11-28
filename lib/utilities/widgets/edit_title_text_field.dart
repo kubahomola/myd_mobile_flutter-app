@@ -13,17 +13,20 @@ class EditTitleTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextField(
-      style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
-      decoration: const InputDecoration(
-        border: InputBorder.none,
+    return SizedBox(
+      width: 150,
+      child: TextField(
+        style:
+            const TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+        decoration: const InputDecoration(
+          border: InputBorder.none,
+        ),
+        autocorrect: false,
+        onSubmitted: (value) {
+          initialText = value;
+        },
+        controller: _textEditingController..text = initialText,
       ),
-      autocorrect: false,
-      onSubmitted: (value) {
-        initialText = value;
-        print(initialText);
-      },
-      controller: _textEditingController..text = initialText,
     );
   }
 }
