@@ -86,6 +86,7 @@ class HabitTracker extends StatelessWidget {
                     children: [
                       EditTitleTextField(
                         initialText: habitName,
+                        height: 25,
                       ),
                       Text(
                         '${formatToMinSec(timeSpent)} / $timeGoal |  ${(percentCompleted() * 100).toStringAsFixed(0)}%',

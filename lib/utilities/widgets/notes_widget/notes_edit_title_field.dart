@@ -16,8 +16,8 @@ class NotesEditTitleTextField extends StatefulWidget {
 
 class _NotesEditTitleTextFieldState extends State<NotesEditTitleTextField> {
   //variables
-  List notesList = ["Dojít si nakoupit", "úkol - AJ"];
-  bool _isEditing = true;
+  List notesList = ["Školní náměstí 1605", "Filmy : Blackbox"];
+  bool _isEditing = false;
 
   @override
   Widget build(BuildContext context) {
@@ -25,38 +25,44 @@ class _NotesEditTitleTextFieldState extends State<NotesEditTitleTextField> {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          EditTitleTextField(initialText: "Notes"),
+          EditTitleTextField(
+            initialText: "Notes",
+            height: 25,
+          ),
           ListView.builder(
               shrinkWrap: true,
               itemCount: notesList.length,
               itemBuilder: ((context, index) {
-                return TextFormField(
-                  style: const TextStyle(fontSize: 14),
-                  decoration: const InputDecoration(
-                    border: InputBorder.none,
+                return SizedBox(
+                  height: 25,
+                  child: TextFormField(
+                    style: const TextStyle(fontSize: 14),
+                    decoration: const InputDecoration(
+                      border: InputBorder.none,
+                    ),
+                    autocorrect: false,
+                    onChanged: (value) {
+                      setState(() {
+                        if (value == "") {
+                          setState(() {
+                            notesList.removeAt(index);
+                          });
+                        }
+                      });
+                    },
+                    onFieldSubmitted: (value) {
+                      notesList[index] = value;
+                      setState(() {
+                        if (value == "") {
+                          setState(() {
+                            notesList.removeAt(index);
+                          });
+                        }
+                        _isEditing = false;
+                      });
+                    },
+                    initialValue: notesList[index],
                   ),
-                  autocorrect: false,
-                  onChanged: (value) {
-                    setState(() {
-                      if (value == "") {
-                        setState(() {
-                          notesList.removeAt(index);
-                        });
-                      }
-                    });
-                  },
-                  onFieldSubmitted: (value) {
-                    notesList[index] = value;
-                    setState(() {
-                      if (value == "") {
-                        setState(() {
-                          notesList.removeAt(index);
-                        });
-                      }
-                      _isEditing = false;
-                    });
-                  },
-                  initialValue: notesList[index],
                 );
               })),
           GestureDetector(
@@ -66,8 +72,11 @@ class _NotesEditTitleTextFieldState extends State<NotesEditTitleTextField> {
                   _isEditing = true;
                 });
               },
-              child: const Icon(
-                Icons.add_circle_outlined,
+              child: const Padding(
+                padding: EdgeInsets.only(top: 10.0),
+                child: Icon(
+                  Icons.add_circle_outlined,
+                ),
               ))
         ],
       );
@@ -75,22 +84,28 @@ class _NotesEditTitleTextFieldState extends State<NotesEditTitleTextField> {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          EditTitleTextField(initialText: "Notes"),
+          EditTitleTextField(
+            initialText: "Notes",
+            height: 25,
+          ),
           ListView.builder(
             shrinkWrap: true,
             itemCount: notesList.length,
             itemBuilder: ((context, index) {
-              return TextFormField(
-                onTap: () {
-                  setState(() {
-                    _isEditing = true;
-                  });
-                },
-                style: const TextStyle(fontSize: 14),
-                decoration: const InputDecoration(
-                  border: InputBorder.none,
+              return SizedBox(
+                height: 25,
+                child: TextFormField(
+                  onTap: () {
+                    setState(() {
+                      _isEditing = true;
+                    });
+                  },
+                  style: const TextStyle(fontSize: 14),
+                  decoration: const InputDecoration(
+                    border: InputBorder.none,
+                  ),
+                  initialValue: notesList[index],
                 ),
-                initialValue: notesList[index],
               );
             }),
           )

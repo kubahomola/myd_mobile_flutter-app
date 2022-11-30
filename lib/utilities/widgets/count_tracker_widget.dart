@@ -100,6 +100,7 @@ class _CountTrackerWidgetState extends State<CountTrackerWidget> {
                 children: [
                   EditTitleTextField(
                     initialText: "Counter2",
+                    height: 25,
                   ),
                   GestureDetector(
                     onDoubleTap: _counterReset,

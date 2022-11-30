@@ -46,6 +46,7 @@ class _CounterWidgetState extends State<CounterWidget> {
                 children: [
                   EditTitleTextField(
                     initialText: "Counter1",
+                    height: 25,
                   ),
                   GestureDetector(
                     onDoubleTap: _counterReset,

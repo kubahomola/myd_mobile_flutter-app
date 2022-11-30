@@ -17,9 +17,11 @@ class RemindersEditTitleTextField extends StatefulWidget {
 class _RemindersEditTitleTextFieldState
     extends State<RemindersEditTitleTextField> {
   //variables
-  List remindersList = ["Dojít si nakoupit", "úkol - AJ"];
-  bool _isEditing = true;
-  final bool _isDone = false;
+  List remindersList = [
+    ["Zavolat doktorovi", false],
+    ["úkol - AJ", false],
+  ];
+  bool _isEditing = false;
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +29,10 @@ class _RemindersEditTitleTextFieldState
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          EditTitleTextField(initialText: "Reminders"),
+          EditTitleTextField(
+            initialText: "Reminders",
+            height: 25,
+          ),
           ListView.builder(
               shrinkWrap: true,
               itemCount: remindersList.length,
@@ -39,41 +44,51 @@ class _RemindersEditTitleTextFieldState
                       child: GestureDetector(
                           onTap: (() {
                             setState(() {
-                              (!_isDone);
+                              (remindersList[index][1] =
+                                  !(remindersList[index][1]));
                             });
                           }),
-                          child: (_isDone)
-                              ? const Icon(Icons.circle)
-                              : const Icon(Icons.circle_outlined)),
+                          child: (remindersList[index][1])
+                              ? const Icon(
+                                  Icons.circle,
+                                  size: 25,
+                                )
+                              : const Icon(
+                                  Icons.circle_outlined,
+                                  size: 25,
+                                )),
                     ),
                     Expanded(
-                      child: TextFormField(
-                        style: const TextStyle(fontSize: 14),
-                        decoration: const InputDecoration(
-                          border: InputBorder.none,
+                      child: SizedBox(
+                        height: 40,
+                        child: TextFormField(
+                          style: const TextStyle(fontSize: 14),
+                          decoration: const InputDecoration(
+                            border: InputBorder.none,
+                          ),
+                          autocorrect: false,
+                          onChanged: (value) {
+                            setState(() {
+                              if (value == "") {
+                                setState(() {
+                                  remindersList.removeAt(index);
+                                });
+                              }
+                            });
+                          },
+                          onFieldSubmitted: (value) {
+                            remindersList[index] = value;
+                            setState(() {
+                              if (value == "") {
+                                setState(() {
+                                  remindersList.removeAt(index);
+                                });
+                              }
+                              _isEditing = false;
+                            });
+                          },
+                          initialValue: remindersList[index][0],
                         ),
-                        autocorrect: false,
-                        onChanged: (value) {
-                          setState(() {
-                            if (value == "") {
-                              setState(() {
-                                remindersList.removeAt(index);
-                              });
-                            }
-                          });
-                        },
-                        onFieldSubmitted: (value) {
-                          remindersList[index] = value;
-                          setState(() {
-                            if (value == "") {
-                              setState(() {
-                                remindersList.removeAt(index);
-                              });
-                            }
-                            _isEditing = false;
-                          });
-                        },
-                        initialValue: remindersList[index],
                       ),
                     ),
                   ],
@@ -83,11 +98,14 @@ class _RemindersEditTitleTextFieldState
               onTap: () {
                 setState(() {
                   remindersList.add("");
-                  _isEditing = true;
+                  _isEditing = false;
                 });
               },
-              child: const Icon(
-                Icons.add_circle_outlined,
+              child: const Padding(
+                padding: EdgeInsets.only(top: 10),
+                child: Icon(
+                  Icons.add_circle_outlined,
+                ),
               ))
         ],
       );
@@ -95,7 +113,10 @@ class _RemindersEditTitleTextFieldState
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          EditTitleTextField(initialText: "Reminders"),
+          EditTitleTextField(
+            initialText: "Reminders",
+            height: 25,
+          ),
           ListView.builder(
             shrinkWrap: true,
             itemCount: remindersList.length,
@@ -107,26 +128,30 @@ class _RemindersEditTitleTextFieldState
                     child: GestureDetector(
                       onTap: (() {
                         setState(() {
-                          (!_isDone);
+                          (remindersList[index][1] =
+                              !(remindersList[index][1]));
                         });
                       }),
-                      child: (_isDone)
+                      child: (remindersList[index][1])
                           ? const Icon(Icons.circle)
                           : const Icon(Icons.circle_outlined),
                     ),
                   ),
                   Expanded(
-                    child: TextFormField(
-                      onTap: () {
-                        setState(() {
-                          _isEditing = true;
-                        });
-                      },
-                      style: const TextStyle(fontSize: 14),
-                      decoration: const InputDecoration(
-                        border: InputBorder.none,
+                    child: SizedBox(
+                      height: 40,
+                      child: TextFormField(
+                        onTap: () {
+                          setState(() {
+                            _isEditing = true;
+                          });
+                        },
+                        style: const TextStyle(fontSize: 14),
+                        decoration: const InputDecoration(
+                          border: InputBorder.none,
+                        ),
+                        initialValue: remindersList[index][0],
                       ),
-                      initialValue: remindersList[index],
                     ),
                   ),
                 ],

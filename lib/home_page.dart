@@ -27,7 +27,7 @@ class _HomePageState extends State<HomePage> {
                 shrinkWrap: true,
                 children: const [
                   NotesWidget(),
-                  //CounterWidget(),
+                  CounterWidget(),
                   CountTrackerWidget(),
                   HabitTrackerWidget(),
                   RemindersWidget(),
