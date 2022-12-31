@@ -11,25 +11,13 @@ class NotesWidget extends StatefulWidget {
 class _NotesWidgetState extends State<NotesWidget> {
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(10.0),
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(16),
-        child: Container(
-          color: Theme.of(context).colorScheme.primary,
-          child: Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: const [
-                NotesEditTitleTextField(
-                  initialText: "Notes",
-                ),
-              ],
-            ),
-          ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: const [
+        NotesEditTitleTextField(
+          initialText: "Notes",
         ),
-      ),
+      ],
     );
   }
 }

@@ -44,70 +44,59 @@ class HabitTracker extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Wrap(children: [
-      Padding(
-        padding: const EdgeInsets.all(10.0),
-        child: Container(
-          decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.primaryContainer,
-              borderRadius: BorderRadius.circular(16)),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Row(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(
-                        left: 10.0, top: 10, bottom: 10, right: 20),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(8),
-                      child: GestureDetector(
-                        onTap: onTap,
-                        child: Container(
-                          height: 80,
-                          width: 80,
-                          color: Theme.of(context).colorScheme.primary,
-                          child: CircularPercentIndicator(
-                            radius: 32,
-                            lineWidth: 7,
-                            percent: percentCompleted(),
-                            progressColor:
-                                Theme.of(context).colorScheme.tertiary,
-                            center: (isHabitRunning)
-                                ? const Icon(Icons.pause, size: 35)
-                                : const Icon(Icons.play_arrow, size: 35),
-                          ),
-                        ),
-                      ),
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Row(
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(
+                  left: 10.0, top: 10, bottom: 10, right: 20),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: GestureDetector(
+                  onTap: onTap,
+                  child: Container(
+                    height: 80,
+                    width: 80,
+                    color: Theme.of(context).colorScheme.primary,
+                    child: CircularPercentIndicator(
+                      radius: 32,
+                      lineWidth: 7,
+                      percent: percentCompleted(),
+                      progressColor: Theme.of(context).colorScheme.tertiary,
+                      center: (isHabitRunning)
+                          ? const Icon(Icons.pause, size: 35)
+                          : const Icon(Icons.play_arrow, size: 35),
                     ),
                   ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      EditTitleTextField(
-                        initialText: habitName,
-                        height: 25,
-                      ),
-                      Text(
-                        '${formatToMinSec(timeSpent)} / $timeGoal |  ${(percentCompleted() * 100).toStringAsFixed(0)}%',
-                      )
-                    ],
-                  ),
-                ],
-              ),
-              const Padding(
-                padding: EdgeInsets.all(
-                  30.0,
-                ),
-                child: Icon(
-                  Icons.settings_outlined,
-                  size: 30,
                 ),
               ),
-            ],
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                EditTitleTextField(
+                  initialText: habitName,
+                  height: 25,
+                ),
+                Text(
+                  '${formatToMinSec(timeSpent)} / $timeGoal |  ${(percentCompleted() * 100).toStringAsFixed(0)}%',
+                )
+              ],
+            ),
+          ],
+        ),
+        const Padding(
+          padding: EdgeInsets.all(
+            30.0,
+          ),
+          child: Icon(
+            Icons.settings_outlined,
+            size: 30,
           ),
         ),
-      ),
-    ]);
+      ],
+    );
   }
 }

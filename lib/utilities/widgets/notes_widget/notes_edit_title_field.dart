@@ -21,55 +21,59 @@ class _NotesEditTitleTextFieldState extends State<NotesEditTitleTextField> {
 
   @override
   Widget build(BuildContext context) {
-    if (_isEditing) {
-      return Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          EditTitleTextField(
-            initialText: "Notes",
-            height: 25,
-          ),
-          ListView.builder(
-              shrinkWrap: true,
-              itemCount: notesList.length,
-              itemBuilder: ((context, index) {
-                return SizedBox(
-                  height: 25,
-                  child: TextFormField(
-                    style: const TextStyle(fontSize: 14),
-                    decoration: const InputDecoration(
-                      border: InputBorder.none,
-                    ),
-                    autocorrect: false,
-                    onChanged: (value) {
-                      setState(() {
-                        if (value == "") {
-                          setState(() {
-                            notesList.removeAt(index);
-                          });
-                        }
-                      });
-                    },
-                    onFieldSubmitted: (value) {
-                      notesList[index] = value;
-                      setState(() {
-                        if (value == "") {
-                          setState(() {
-                            notesList.removeAt(index);
-                          });
-                        }
-                        _isEditing = false;
-                      });
-                    },
-                    initialValue: notesList[index],
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        EditTitleTextField(
+          initialText: "Notes",
+          height: 25,
+        ),
+        ListView.builder(
+            shrinkWrap: true,
+            itemCount: notesList.length,
+            itemBuilder: ((context, index) {
+              return SizedBox(
+                height: 25,
+                child: TextFormField(
+                  style: const TextStyle(fontSize: 14),
+                  decoration: const InputDecoration(
+                    border: InputBorder.none,
                   ),
-                );
-              })),
-          GestureDetector(
+                  autocorrect: false,
+                  onTap: () {
+                    setState(() {
+                      _isEditing = true;
+                    });
+                  },
+                  onChanged: (value) {
+                    setState(() {
+                      if (value == "") {
+                        setState(() {
+                          notesList.removeAt(index);
+                          _isEditing = false;
+                        });
+                      }
+                    });
+                  },
+                  onFieldSubmitted: (value) {
+                    notesList[index] = value;
+                    setState(() {
+                      if (value == "") {
+                        notesList.removeAt(index);
+                      }
+                      _isEditing = false;
+                    });
+                  },
+                  initialValue: notesList[index],
+                ),
+              );
+            })),
+        Visibility(
+          visible: _isEditing,
+          child: GestureDetector(
               onTap: () {
                 setState(() {
                   notesList.add("");
-                  _isEditing = true;
                 });
               },
               child: const Padding(
@@ -77,40 +81,9 @@ class _NotesEditTitleTextFieldState extends State<NotesEditTitleTextField> {
                 child: Icon(
                   Icons.add_circle_outlined,
                 ),
-              ))
-        ],
-      );
-    } else {
-      return Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          EditTitleTextField(
-            initialText: "Notes",
-            height: 25,
-          ),
-          ListView.builder(
-            shrinkWrap: true,
-            itemCount: notesList.length,
-            itemBuilder: ((context, index) {
-              return SizedBox(
-                height: 25,
-                child: TextFormField(
-                  onTap: () {
-                    setState(() {
-                      _isEditing = true;
-                    });
-                  },
-                  style: const TextStyle(fontSize: 14),
-                  decoration: const InputDecoration(
-                    border: InputBorder.none,
-                  ),
-                  initialValue: notesList[index],
-                ),
-              );
-            }),
-          )
-        ],
-      );
-    }
+              )),
+        )
+      ],
+    );
   }
 }
