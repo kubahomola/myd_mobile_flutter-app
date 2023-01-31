@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:myd/utilities/widgets/edit_title_text_field.dart';
 
@@ -43,25 +45,29 @@ class _RemindersEditTitleTextFieldState
                     child: GestureDetector(
                         onTap: (() {
                           setState(() {
-                            (remindersList[index][1] =
-                                !(remindersList[index][1]));
+                            remindersList[index][1] =
+                                !(remindersList[index][1]);
                           });
                         }),
                         child: (remindersList[index][1])
                             ? const Icon(
                                 Icons.circle,
-                                size: 25,
+                                size: 20,
                               )
                             : const Icon(
                                 Icons.circle_outlined,
-                                size: 25,
+                                size: 20,
                               )),
                   ),
                   Expanded(
                     child: SizedBox(
-                      height: 40,
+                      height: 30,
                       child: TextFormField(
-                        style: const TextStyle(fontSize: 14),
+                        style: TextStyle(
+                            fontSize: 14,
+                            fontWeight: (remindersList[index][1])
+                                ? FontWeight.w200
+                                : FontWeight.normal),
                         decoration: const InputDecoration(
                           border: InputBorder.none,
                         ),
@@ -81,7 +87,7 @@ class _RemindersEditTitleTextFieldState
                           });
                         },
                         onFieldSubmitted: (value) {
-                          remindersList[index] = value;
+                          remindersList[index][0] = value;
                           setState(() {
                             if (value == "") {
                               remindersList.removeAt(index);
@@ -99,17 +105,18 @@ class _RemindersEditTitleTextFieldState
         Visibility(
           visible: _isEditing,
           child: GestureDetector(
-              onTap: () {
-                setState(() {
-                  remindersList.add("");
-                });
-              },
-              child: const Padding(
-                padding: EdgeInsets.only(top: 10),
-                child: Icon(
-                  Icons.add_circle_outlined,
-                ),
-              )),
+            onTap: () {
+              setState(() {
+                remindersList.add(["", false]);
+              });
+            },
+            child: const Padding(
+              padding: EdgeInsets.only(top: 10),
+              child: Icon(
+                Icons.add_circle_outlined,
+              ),
+            ),
+          ),
         )
       ],
     );

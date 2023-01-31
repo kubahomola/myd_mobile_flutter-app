@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:myd/data/database.dart';
 import 'package:myd/utilities/widgets/count_tracker_widget.dart';
 import 'package:myd/utilities/widgets/counter_widget.dart';
-import 'package:myd/utilities/widgets/custom_widget_container.dart';
 import 'package:myd/utilities/widgets/habit_tracker/habit_tracker_widget.dart';
 import 'package:myd/utilities/widgets/notes_widget/notes_widget.dart';
 
-import 'utilities/widgets/reminders_widget.dart/reminders_widget.dart';
+import '../utilities/widgets/reminders_widget.dart/reminders_widget.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -24,7 +25,6 @@ List<Widget> widget = const [
   RemindersWidget(),
   HabitTrackerWidget()
 ];
-List widgetList = [1, 3];
 
 Widget getWidgetType(int widgetNumber) {
   switch (widgetNumber) {
@@ -39,14 +39,29 @@ Widget getWidgetType(int widgetNumber) {
     case 5:
       return const HabitTrackerWidget();
     default:
-      return const Text("Add your widget");
+      return const Text("Add your first widget");
   }
 }
 
 class _HomePageState extends State<HomePage> {
+  WidgetDataBase db = WidgetDataBase();
+
+  @override
+  void initState() {
+    if (_myBox.get("WIDGETLIST") == null) {
+      db.createInitailData();
+    } else {
+      db.loadData();
+    }
+    super.initState();
+  }
+
+  final _myBox = Hive.box('mybox');
+
   void removeWidget(int index) {
     setState(() {
-      widgetList.removeAt(index);
+      db.widgetList.removeAt(index);
+      db.updateData();
     });
   }
 
@@ -107,21 +122,22 @@ class _HomePageState extends State<HomePage> {
                     setState(() {
                       switch (value) {
                         case MenuItem.counter:
-                          widgetList.add(1);
+                          db.widgetList.add(1);
                           break;
                         case MenuItem.countTracker:
-                          widgetList.add(2);
+                          db.widgetList.add(2);
                           break;
                         case MenuItem.notes:
-                          widgetList.add(3);
+                          db.widgetList.add(3);
                           break;
                         case MenuItem.reminders:
-                          widgetList.add(4);
+                          db.widgetList.add(4);
                           break;
                         case MenuItem.habitTracker:
-                          widgetList.add(5);
+                          db.widgetList.add(5);
                           break;
                       }
+                      db.updateData();
                     });
                   }),
                 ),
@@ -135,7 +151,7 @@ class _HomePageState extends State<HomePage> {
           child: Column(mainAxisAlignment: MainAxisAlignment.start, children: [
             Expanded(
                 child: ListView.builder(
-              itemCount: widgetList.length,
+              itemCount: db.widgetList.length,
               itemBuilder: ((context, index) {
                 return Column(
                   children: [
@@ -152,6 +168,7 @@ class _HomePageState extends State<HomePage> {
                                     SlidableAction(
                                       onPressed: (context) {
                                         removeWidget(index);
+                                        db.updateData();
                                       },
                                       backgroundColor: Colors.redAccent,
                                       icon: Icons.cancel_rounded,
@@ -165,8 +182,8 @@ class _HomePageState extends State<HomePage> {
                                 ),
                                 child: Padding(
                                     padding: EdgeInsets.all(
-                                        widgetList[index] == 5 ? 5 : 20),
-                                    child: getWidgetType(widgetList[index])),
+                                        db.widgetList[index] == 5 ? 5 : 20),
+                                    child: getWidgetType(db.widgetList[index])),
                               ),
                             ),
                           ),
