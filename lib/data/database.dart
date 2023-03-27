@@ -18,3 +18,22 @@ class WidgetDataBase {
     _myBox.put("WIDGETLIST", widgetList);
   }
 }
+
+class CounterWidgetDataBase {
+  late int counterNumber;
+
+//reference the box
+  final _myBox = Hive.box('mybox');
+
+  void createInitailData() {
+    counterNumber = 0;
+  }
+
+  void loadData() {
+    counterNumber = _myBox.get("COUNTERNUMBER");
+  }
+
+  void updateData() {
+    _myBox.put("COUNTERNUMBER", counterNumber);
+  }
+}

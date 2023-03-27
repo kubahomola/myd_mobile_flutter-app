@@ -67,134 +67,149 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        centerTitle: false,
-        title: const Text("MAKE YOUR DAY"),
-        elevation: 0,
-        actions: [
-          Padding(
-            padding: const EdgeInsets.only(right: 10),
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(8),
-              child: Container(
-                color: Theme.of(context).colorScheme.tertiaryContainer,
-                child: PopupMenuButton(
-                  icon: const Icon(Icons.add, size: 35),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(
-                      12,
+    return Container(
+      decoration: const BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          colors: [
+            Color.fromARGB(255, 44, 48, 55),
+            Color.fromARGB(255, 25, 28, 32)
+          ],
+        ),
+      ),
+      child: Scaffold(
+        appBar: AppBar(
+          centerTitle: false,
+          title: const Text("MAKE YOUR DAY"),
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          actions: [
+            Padding(
+              padding: const EdgeInsets.only(right: 10),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: Container(
+                  color: Theme.of(context).colorScheme.tertiaryContainer,
+                  child: PopupMenuButton(
+                    icon: const Icon(Icons.add, size: 35),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(
+                        12,
+                      ),
                     ),
+                    itemBuilder: ((context) => <PopupMenuEntry<MenuItem>>[
+                          const PopupMenuItem<MenuItem>(
+                            value: MenuItem.counter,
+                            child: ListTile(
+                              title: Text("Counter"),
+                            ),
+                          ),
+                          const PopupMenuItem<MenuItem>(
+                            value: MenuItem.countTracker,
+                            child: ListTile(
+                              title: Text("CountTracker"),
+                            ),
+                          ),
+                          const PopupMenuItem<MenuItem>(
+                            value: MenuItem.notes,
+                            child: ListTile(
+                              title: Text("Notes"),
+                            ),
+                          ),
+                          const PopupMenuItem<MenuItem>(
+                            value: MenuItem.reminders,
+                            child: ListTile(
+                              title: Text("Reminders"),
+                            ),
+                          ),
+                          const PopupMenuItem<MenuItem>(
+                            value: MenuItem.habitTracker,
+                            child: ListTile(
+                              title: Text("HabitTracker"),
+                            ),
+                          ),
+                        ]),
+                    onSelected: ((value) {
+                      setState(() {
+                        switch (value) {
+                          case MenuItem.counter:
+                            db.widgetList.add(1);
+                            break;
+                          case MenuItem.countTracker:
+                            db.widgetList.add(2);
+                            break;
+                          case MenuItem.notes:
+                            db.widgetList.add(3);
+                            break;
+                          case MenuItem.reminders:
+                            db.widgetList.add(4);
+                            break;
+                          case MenuItem.habitTracker:
+                            db.widgetList.add(5);
+                            break;
+                        }
+                        db.updateData();
+                      });
+                    }),
                   ),
-                  itemBuilder: ((context) => <PopupMenuEntry<MenuItem>>[
-                        const PopupMenuItem<MenuItem>(
-                          value: MenuItem.counter,
-                          child: ListTile(
-                            title: Text("Counter"),
-                          ),
-                        ),
-                        const PopupMenuItem<MenuItem>(
-                          value: MenuItem.countTracker,
-                          child: ListTile(
-                            title: Text("CountTracker"),
-                          ),
-                        ),
-                        const PopupMenuItem<MenuItem>(
-                          value: MenuItem.notes,
-                          child: ListTile(
-                            title: Text("Notes"),
-                          ),
-                        ),
-                        const PopupMenuItem<MenuItem>(
-                          value: MenuItem.reminders,
-                          child: ListTile(
-                            title: Text("Reminders"),
-                          ),
-                        ),
-                        const PopupMenuItem<MenuItem>(
-                          value: MenuItem.habitTracker,
-                          child: ListTile(
-                            title: Text("HabitTracker"),
-                          ),
-                        ),
-                      ]),
-                  onSelected: ((value) {
-                    setState(() {
-                      switch (value) {
-                        case MenuItem.counter:
-                          db.widgetList.add(1);
-                          break;
-                        case MenuItem.countTracker:
-                          db.widgetList.add(2);
-                          break;
-                        case MenuItem.notes:
-                          db.widgetList.add(3);
-                          break;
-                        case MenuItem.reminders:
-                          db.widgetList.add(4);
-                          break;
-                        case MenuItem.habitTracker:
-                          db.widgetList.add(5);
-                          break;
-                      }
-                      db.updateData();
-                    });
-                  }),
                 ),
               ),
-            ),
-          )
-        ],
-      ),
-      body: SafeArea(
-        child: Center(
-          child: Column(mainAxisAlignment: MainAxisAlignment.start, children: [
-            Expanded(
-                child: ListView.builder(
-              itemCount: db.widgetList.length,
-              itemBuilder: ((context, index) {
-                return Column(
-                  children: [
-                    Wrap(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(10.0),
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(16),
-                            child: Slidable(
-                              endActionPane: ActionPane(
-                                  motion: const ScrollMotion(),
-                                  children: [
-                                    SlidableAction(
-                                      onPressed: (context) {
-                                        removeWidget(index);
-                                        db.updateData();
-                                      },
-                                      backgroundColor: Colors.redAccent,
-                                      icon: Icons.cancel_rounded,
-                                    ),
-                                  ]),
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  color: Theme.of(context)
-                                      .colorScheme
-                                      .primaryContainer,
+            )
+          ],
+        ),
+        body: SafeArea(
+          child: Center(
+            child:
+                Column(mainAxisAlignment: MainAxisAlignment.start, children: [
+              Expanded(
+                  child: ListView.builder(
+                itemCount: db.widgetList.length,
+                itemBuilder: ((context, index) {
+                  return Column(
+                    children: [
+                      Wrap(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(10.0),
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(16),
+                              child: Slidable(
+                                endActionPane: ActionPane(
+                                    motion: const ScrollMotion(),
+                                    children: [
+                                      SlidableAction(
+                                        onPressed: (context) {
+                                          removeWidget(index);
+                                          db.updateData();
+                                        },
+                                        backgroundColor: Colors.redAccent,
+                                        icon: Icons.cancel_rounded,
+                                      ),
+                                    ]),
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .primaryContainer,
+                                  ),
+                                  child: Padding(
+                                      padding: EdgeInsets.all(
+                                          db.widgetList[index] == 5 ? 5 : 20),
+                                      child:
+                                          getWidgetType(db.widgetList[index])),
                                 ),
-                                child: Padding(
-                                    padding: EdgeInsets.all(
-                                        db.widgetList[index] == 5 ? 5 : 20),
-                                    child: getWidgetType(db.widgetList[index])),
                               ),
                             ),
                           ),
-                        ),
-                      ],
-                    )
-                  ],
-                );
-              }),
-            )),
-          ]),
+                        ],
+                      )
+                    ],
+                  );
+                }),
+              )),
+            ]),
+          ),
         ),
       ),
     );

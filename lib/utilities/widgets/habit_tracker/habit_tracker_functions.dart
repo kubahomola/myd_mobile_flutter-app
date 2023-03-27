@@ -87,13 +87,16 @@ class HabitTracker extends StatelessWidget {
             ),
           ],
         ),
-        const Padding(
-          padding: EdgeInsets.all(
+        Padding(
+          padding: const EdgeInsets.all(
             30.0,
           ),
-          child: Icon(
-            Icons.settings_outlined,
-            size: 30,
+          child: GestureDetector(
+            onTap: settingsTapped,
+            child: const Icon(
+              Icons.settings_outlined,
+              size: 30,
+            ),
           ),
         ),
       ],

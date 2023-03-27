@@ -36,7 +36,8 @@ class MyApp extends StatelessWidget {
             brightness: Brightness.dark,
           ),
           dialogTheme: const DialogTheme(elevation: 0),
-          scaffoldBackgroundColor: const Color.fromARGB(255, 44, 48, 55),
+          scaffoldBackgroundColor:
+              Colors.transparent, //const Color.fromARGB(255, 44, 48, 55),
           textTheme: const TextTheme(
             bodyText2: TextStyle(
               color: Colors.white,

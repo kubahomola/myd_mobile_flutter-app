@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:myd/data/database.dart';
 import 'package:myd/utilities/widgets/edit_title_text_field.dart';
 
 class CounterWidget extends StatefulWidget {
@@ -9,23 +11,38 @@ class CounterWidget extends StatefulWidget {
 }
 
 class _CounterWidgetState extends State<CounterWidget> {
-  int counterNumber = 0;
+  CounterWidgetDataBase cd = CounterWidgetDataBase();
+
+  @override
+  void initState() {
+    if (_myBox.get("COUNTERNUMBER") == null) {
+      cd.createInitailData();
+    } else {
+      cd.loadData();
+    }
+    super.initState();
+  }
+
+  final _myBox = Hive.box('mybox');
 
   void _counterIncreased() {
     setState(() {
-      counterNumber++;
+      cd.counterNumber++;
+      cd.updateData();
     });
   }
 
   void _counterDecreased() {
     setState(() {
-      counterNumber--;
+      cd.counterNumber--;
+      cd.updateData();
     });
   }
 
   void _counterReset() {
     setState(() {
-      counterNumber = 0;
+      cd.counterNumber = 0;
+      cd.updateData();
     });
   }
 
@@ -49,7 +66,7 @@ class _CounterWidgetState extends State<CounterWidget> {
               child: Padding(
                 padding: const EdgeInsets.all(8.5),
                 child: Text(
-                  counterNumber.toString(),
+                  cd.counterNumber.toString(),
                   style: const TextStyle(
                     fontSize: 20,
                   ),
